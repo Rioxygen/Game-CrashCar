@@ -1,0 +1,119 @@
+﻿body
+{
+}
+#WindowOfGame {
+    position: relative;
+    width: 800px;
+    height: 600px;
+    margin-left: 400px;
+    margin-top: 8px;
+    //background: url(Images/route3.jpg);
+    background-color: black;
+    overflow:hidden;
+}
+.car {
+    width: 165px;
+    height: 77px;
+    background-size: 100%;
+    background-repeat:no-repeat;
+    position:absolute;
+}
+.road_line 
+{
+    width:100px;
+    height:20px;
+    background-color:white;
+    position:absolute;
+    top:290px;
+
+}
+.line_1 
+{
+    left:200px;
+}
+.line_2 {
+    left: 400px;
+}
+.line_3 {
+    left: 600px;
+}
+.line_4 {
+    left: 800px;
+}
+.grass-top {
+    background-color: white;
+    width: 200px;
+    height: 80px;
+    position: absolute;
+    top: 0px;
+    background: url(Images/grass.jpg);
+    background-size: 100%;
+}
+.grass-bot {
+    background-color: white;
+    width: 200px;
+    height: 80px;
+    position: absolute;
+    top: 520px;
+    background: url(Images/grass.jpg);
+    background-size: 100%;
+}
+.menu {
+    width: 800px;
+    height: 600px;
+    position:relative;
+    z-index: 1000;
+    background: url(Images/menu.jpg);
+    background-size: 100%;
+    background-repeat:no-repeat;
+}
+.but_start {
+    position: absolute;
+    display: block;
+    width: 200px;
+    height: 50px;
+    line-height: 2.5em;
+    vertical-align: middle;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: 0 -1px 1px #777;
+    color: #fff;
+    outline: none;
+    border: 2px solid #F64C2B;
+    border-radius: 5px;
+    box-shadow: 0 0 0 60px rgba(0,0,0,0) inset, .1em .1em .2em #800;
+    background: linear-gradient(#FB9575, #F45A38 48%, #EA1502 52%, #F02F17);
+    font-size:20px;
+    left:300px;
+    top:250px;
+
+}
+
+    .but_start:hover {
+        background: linear-gradient(#800, #F45A38 48%, #EA1502 52%, #F02F18);
+    }
+
+.but_start:active {
+    background: rgb(144, 15, 11);
+    box-shadow: 0 0px rgb(33,147,90) inset;
+}
+.menu_last {
+    width: 800px;
+    height: 600px;
+    position: relative;
+    z-index: 1000;
+    background: url(Images/Menu2.jpg);
+    background-size: 100%;
+}
+.score {
+    position:absolute;
+    font-size:50px;
+    left:180px;
+    top:400px;
+}
+.bestScore {
+    position: absolute;
+    font-size: 50px;
+    left: 180px;
+    top: 500px;
+}
