@@ -7,7 +7,6 @@
     height: 600px;
     margin-left: 400px;
     margin-top: 8px;
-    //background: url(Images/route3.jpg);
     background-color: black;
     overflow:hidden;
 }
@@ -116,4 +115,26 @@
     font-size: 50px;
     left: 180px;
     top: 500px;
+}
+.gameover-text {
+    font-size: 100px;
+    position: absolute;
+    left : 100px;
+    top : 30px;
+}
+#cur-score-container {
+    position: absolute;
+    font-size: 25px;
+    color: white;
+    top:7px;
+    left:600px;
+    
+
+}
+#best-score-container {
+    position: absolute;
+    font-size: 25px;
+    color: white;
+    top: 50px;
+    left: 600px;
 }

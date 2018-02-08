@@ -1,5 +1,4 @@
-class Car
-{
+class Car {
     constructor(img, id) {
         this.img = img;
         this.id = id;
@@ -12,15 +11,13 @@ class Car
         el.style.display = "none";
         document.getElementById("WindowOfGame").appendChild(el);
     }
-    move(right, top)
-    {
+    move(right, top) {
         var el = document.getElementById(this.id);
-        el.style.right = right+"px";
+        el.style.right = right + "px";
         el.style.top = top + "px";
-        el.style.display="";
+        el.style.display = "";
     }
-    static random()
-    {
+    static random() {
         var rand = 0 + Math.random() * ((arguments[1]||3) + 1 - 0);
         rand = Math.floor(rand);
         if (arguments[0] == "Car") {
@@ -40,6 +37,7 @@ class Car
         return rand;
     }
 }
+
 class PlayerCar extends Car
 {
     move(top)
@@ -50,28 +48,24 @@ class PlayerCar extends Car
         el.style.display = "";
     }
 }
-class Road
-{
-    constructor() { }
-    built_lines(left)
-    {
+
+class Road {
+    built_lines(left) {
         var lines = document.getElementsByClassName("road_line");
        
-        for (var i = 0; i < lines.length; i++)
-        {
+        for (var i = 0; i < lines.length; i++) {
           
             if (parseInt(getComputedStyle(lines[i]).left) > -200) {
                 lines[i].style.left = (parseInt(getComputedStyle(lines[i]).left) - left) + "px";
                 
             }
-            else if (parseInt(getComputedStyle(lines[i]).left) == -200)
-            {
+            else if (parseInt(getComputedStyle(lines[i]).left) == -200) {
                 lines[i].style.left = 800 + "px";
             }
         }
     }
-    built_grass(left)
-    {
+
+    built_grass(left) {
         var gr_top = document.getElementsByClassName("grass-top");
         var gr_bot = document.getElementsByClassName("grass-bot");
 
@@ -89,6 +83,7 @@ class Road
         }
     }
 }
+
 class Menu
 {
     createMainMenu()
@@ -101,88 +96,101 @@ class Menu
         menu.appendChild(but_start);
         document.getElementById("WindowOfGame").appendChild(menu);
     };
-    createLastMenu() {
+
+    createLastMenu(curScore) {
         var container = document.createElement("div");
         container.classList.add("menu_last");
         var g = document.createElement("p");
         g.innerHTML = "GAME OVER";
-        g.style.fontSize = 100 + "px";
-        g.style.position = "absolute";
-        g.style.left = "100px";
-        g.style.top = "30px";
+        g.className="gameover-text";
         container.appendChild(g);
         var but = document.createElement("button");
         but.innerHTML = "Replay";
         but.classList.add("but_start");
         container.appendChild(but);
-        let iscore = document.createElement("span");
+        let score = document.createElement("span");
         let bestScore = document.createElement("span");
-        iscore.classList.add("score");
+        score.classList.add("score");
         bestScore.classList.add("bestScore");
-        iscore.innerHTML = "SCORE: " + score;
+        score.innerHTML = "SCORE: " + curScore;
         bestScore.innerHTML = "SCORE: " + localStorage.getItem("score");
-        container.appendChild(iscore);
+        container.appendChild(score);
         container.appendChild(bestScore);
-        but.onclick = go;
+        but.onclick = startGame;
         document.getElementById("WindowOfGame").appendChild(container);
     };
 };
+
 var menu = new Menu();
 menu.createMainMenu();
-document.getElementsByClassName("but_start")[0].onclick = go;
-    function go ()
-   
- {
-        var abc = document.getElementsByClassName("menu")[0];
-        if (abc) {
-            document.getElementById("WindowOfGame").removeChild(abc);
-        }
-        var abc = document.getElementsByClassName("menu_last")[0];
-        if (abc) {
-            document.getElementById("WindowOfGame").removeChild(abc);
-        }
-        
-        function Score(num) {
-            var Score = document.getElementById("score");
+
+document.getElementsByClassName("but_start")[0].onclick = startGame;
+    
+function startGame () {
+    var DomElMenu = document.getElementsByClassName("menu")[0];
+    if (DomElMenu) {
+        document.getElementById("WindowOfGame").removeChild(DomElMenu);
+    }
+    DomElMenu = document.getElementsByClassName("menu_last")[0];
+    if (DomElMenu) {
+        document.getElementById("WindowOfGame").removeChild(DomElMenu);
+    }
+        function createScoreBar(curScore) {
+            let Score = document.getElementById("score");
             if (arguments.length == 1) {
                 if (!Score) {
                     
-                    spanScore = document.createElement("span");
-                    spanScore.id = "span_score";
-                    spanScore.style.position = "absolute";
-                    spanScore.style.fontSize = 25 + "px";
-                    spanScore.style.color = "white";
-                    spanScore.style.top = 7 + "px";
-                    spanScore.style.left = 600 + "px";
-                    spanScore.textContent="Score: "
+                    var CurScoreContainer = document.createElement("span");
+                    CurScoreContainer.id = "cur-score-container";
                     Score = document.createElement("span");
                     Score.id = "score";
-                    bspScore = document.createElement("span");
-                    bspScore.style.position = "absolute";
-                    bspScore.style.fontSize = 25 + "px";
-                    bspScore.style.color = "white";
-                    bspScore.style.top = 50 + "px";
-                    bspScore.style.left = 600 + "px";
-                    bspScore.textContent="BestScore: "
+                    CurScoreContainer.appendChild(Score);
+                    document.getElementById("WindowOfGame").appendChild(CurScoreContainer);
+
+                    bestScoreContainer = document.createElement("span");
+                    bestScoreContainer.id = "best-score-container"
                     bestScore = document.createElement("span");
                     bestScore.id = "bestscore";
-                    //bestScore.innerHTML =
-                    bspScore.appendChild(bestScore);
-                    spanScore.appendChild(Score);
-                    document.getElementById("WindowOfGame").appendChild(spanScore)
-                    document.getElementById("WindowOfGame").appendChild(bspScore);
+                    bestScoreContainer.appendChild(bestScore);
+                    document.getElementById("WindowOfGame").appendChild(bestScoreContainer);
                 }
-               // spanScore.innerHTML = "";
-                Score.innerHTML = num;
+                Score.innerHTML ="Score: " + curScore;
             }
-            if (arguments.length == 0)
-            {
-                if (spanScore)
-                {
-                    document.getElementById("WindowOfGame").removeChild(spanScore);
+            if (arguments.length == 0) {
+                if (CurScoreContainer) {
+                    document.getElementById("WindowOfGame").removeChild(CurScoreContainer);
                 }
             }
         }
+
+        function moveCar(swCar, arrObjCar, posCar, nLine, pos, curScore) {
+            for (var i = 0; i < swCar.length; i++) {
+                if (swCar[i]) {
+                    arrObjCar[i].move(posCar[i], nLine[i]);
+                    posCar[i] += 5;
+                    if (((500 - posCar[i]) <= 155 && (500 - posCar[i]) >= -165) && 
+                    ((nLine[i] - pos) <= 63 && (nLine[i] - pos) >= -63)) {
+                        endGame(curScore);
+                    }
+                }
+            }
+            posCar.forEach(function (val, index) { 
+                if (val > 810) { 
+                    swCar[index] = false; 
+                    posCar[index] = -217; 
+                    nLine[index] = 0 
+                } 
+            });
+        }
+
+        function endGame(curScore) {
+            clearInterval(timer1);
+            clearInterval(timer2);
+            menu.createLastMenu(curScore);
+            if (localStorage.getItem("score") < curScore) {
+                localStorage.setItem("score", curScore);
+            }
+        };
 
     var arr_obj_car = [];
     arr_obj_car[0] = new Car("url(Images/Audi2.png)", 1);
@@ -203,45 +211,52 @@ document.getElementsByClassName("but_start")[0].onclick = go;
     arr_obj_car[7].CreateCar();
     var player = new PlayerCar("url(Images/Taxi.png)", 3)
     player.CreateCar();
-    arr_obj_car.forEach(function (item) { item.move(-217,90); })
-    //var pos = 1;
-    var pos2 = 90;
+
+    arr_obj_car.forEach(function (item) { item.move(-217, 90); })
+    var posPlayerCar = 90;
     var road = new Road();
-    var move_bot;
-    var move_top;
-    var score=1;
-    var n_car;//Номер машини
-    var position_car = [-217, -217, -217, -217, -217, -217, -217, -217];//Массив координат машин
-    var n_line = [];//Масив-Полоса дороги
-    var sw_car = [0, 0, 0, 0, 0, 0, 0, 0];//Текущее состояние машини
+    var move_bot_timer;
+    var move_top_timer;
+    var score = 1;
+    var n_car;
+    var position_car = [-217, -217, -217, -217, -217, -217, -217, -217];
+    var n_line = [];
+    var sw_car = [0, 0, 0, 0, 0, 0, 0, 0];
+
     addEventListener("keydown", function (event) {
-
         switch (event.keyCode) {
-
-            case 40: if (!move_bot) { move_bot = setInterval(function () { if (pos2 <= 435) { pos2 += 5; } }, 30) };
+            case 40: if (!move_bot_timer) { 
+                        move_bot_timer = setInterval(function () {
+                            if (posPlayerCar <= 435) { 
+                                 posPlayerCar += 5; 
+                            } 
+                        }, 30) 
+                    };
                 break;
             case 38:
-                if (!move_top) { move_top = setInterval(function () { if (pos2 >= 90) { pos2 -= 5; } }, 30) };
-
+                if (!move_top_timer) { 
+                    move_top_timer = setInterval(function () { 
+                        if (posPlayerCar >= 90) { 
+                            posPlayerCar -= 5; 
+                        } 
+                    }, 30) 
+                };
                 break;
         }
 
     });
     addEventListener("keyup", function (event) {
-
         switch (event.keyCode) {
-
-            case 40: clearInterval(move_bot);
-                move_bot = null;
+            case 40: clearInterval(move_bot_timer);
+                move_bot_timer = null;
                 break;
-            case 38: clearInterval(move_top);
-                move_top = null;
+            case 38: clearInterval(move_top_timer);
+                move_top_timer = null;
                 break;
-
         }
-
     });
-    var timer1=setInterval(function () {
+
+    var timer1 = setInterval(function () {
         if (Car.random(0, 2) == 1 && sw_car.some(function (val) { return !val })) {
             n_car = Car.random(0, 7);
             var line = Car.random("Car");
@@ -250,51 +265,25 @@ document.getElementsByClassName("but_start")[0].onclick = go;
                     return true;
                 }
             })) {
-                if (position_car[n_car + 1] > 270 || position_car[n_car + 1] == -217 || position_car[n_car - 1] > 270 || position_car[n_car - 1] == -217) {
+                if (position_car[n_car + 1] > 270 || position_car[n_car + 1] == -217 || 
+                    position_car[n_car - 1] > 270 || position_car[n_car - 1] == -217) { 
                     n_line[n_car] = line;
                     sw_car[n_car] = true;
-                    
                 }
             }
-            //}
-        }
-        Score(score);
-       
-            document.getElementById("bestscore").innerHTML = localStorage.getItem("score")||0;
-       
+        };
+
+        createScoreBar(score);
+        document.getElementById("bestscore").innerHTML = "BestScore: "+localStorage.getItem("score") || 0;
     }, 500);
 
-    
-    function moveCar(swCar, arrObjCar, posCar, nLine, pos) {
-        for (var i = 0; i < swCar.length; i++) {
-            if (swCar[i]) {
-                arrObjCar[i].move(posCar[i], nLine[i]);
-                posCar[i] += 5;
-                if (((500 - posCar[i]) <= 155 && (500 - posCar[i]) >= -165) && ((nLine[i] - pos) <= 63 && (nLine[i] - pos) >= -63)) {
-                    //alert("GameOver");
-                    endGame();
-                }
-            }
-        }
-        posCar.forEach(function (val, index) { if (val > 810) { swCar[index] = false; posCar[index] = -217; nLine[index] = 0 } });
-    }
-    var timer2=setInterval(function () {
+    var timer2 = setInterval(function () {
         road.built_lines(5);
         road.built_grass(5);
-        moveCar(sw_car, arr_obj_car, position_car, n_line, pos2);
-        player.move(pos2);
+        moveCar(sw_car, arr_obj_car, position_car, n_line, posPlayerCar, score);
+        player.move(posPlayerCar);
         score += 1;
-        
     }, 25);
-    function endGame()
-    {
-        clearInterval(timer1);
-        clearInterval(timer2);
-        menu.createLastMenu();
-        if (localStorage.getItem("score") < score) {
-            localStorage.setItem("score", score);
-        }
-    };
 };
 
 
