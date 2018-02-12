@@ -214,7 +214,7 @@ function startGame () {
     arr_obj_car[6].CreateCar();
     arr_obj_car[7] = new Car("url(Images/truck.png)", 9);
     arr_obj_car[7].CreateCar();
-    var player = new PlayerCar("url(Images/Taxi.png)", 3)
+    var player = new PlayerCar("url(Images/taxi.png)", 3)
     player.CreateCar();
 
     arr_obj_car.forEach(function (item) { item.move(-217, 90); })
