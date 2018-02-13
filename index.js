@@ -113,7 +113,7 @@ class Menu
         score.classList.add("score");
         bestScore.classList.add("bestScore");
         score.innerHTML = "SCORE: " + curScore;
-        bestScore.innerHTML = "SCORE: " + localStorage.getItem("score");
+        bestScore.innerHTML = "BEST SCORE: " + localStorage.getItem("score") ;
         container.appendChild(score);
         container.appendChild(bestScore);
         but.onclick = startGame;
@@ -191,10 +191,10 @@ function startGame () {
         function endGame(curScore) {
             clearInterval(timer1);
             clearInterval(timer2);
-            menu.createLastMenu(curScore);
             if (localStorage.getItem("score") < curScore) {
                 localStorage.setItem("score", curScore);
             }
+            menu.createLastMenu(curScore);
         };
 
     var arr_obj_car = [];
@@ -214,7 +214,7 @@ function startGame () {
     arr_obj_car[6].CreateCar();
     arr_obj_car[7] = new Car("url(Images/truck.png)", 9);
     arr_obj_car[7].CreateCar();
-    var player = new PlayerCar("url(Images/Taxi.png)", 3)
+    var player = new PlayerCar("url(Images/taxi.png)", 3)
     player.CreateCar();
 
     arr_obj_car.forEach(function (item) { item.move(-217, 90); })
@@ -279,7 +279,7 @@ function startGame () {
         };
 
         createScoreBar(score);
-        document.getElementById("bestscore").innerHTML = "BestScore: "+localStorage.getItem("score") || 0;
+        document.getElementById("bestscore").innerHTML = "BestScore: " + (localStorage.getItem("score") || 0);
     }, 500);
 
     var timer2 = setInterval(function () {
